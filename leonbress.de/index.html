@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jean Leon Breß – Web- & Grafikdesign</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1557452539299889204/1557452671609471047/JLB_Logo.png?backend=b2&ex=6ac7da54&is=6ac688d4&hm=90b14c091a73074e0cb33e6c8cb9ae6349d15b11c017b7f896726dce9399b6bb&">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom Font: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            900: '#4c1d95',
+                        },
+                        dark: {
+                            bg: '#0a0a0c',
+                            card: '#121217',
+                            border: '#23232f',
+                            hover: '#1a1a22'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0c;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+        .glow-effect {
+            position: relative;
+        }
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        /* Custom Purple Neon Glow Transitions */
+        .glow-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glow-card:hover {
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.35);
+            border-color: rgba(139, 92, 246, 0.6);
+            transform: translateY(-3px);
+        }
+        /* Focus Glow for Inputs */
+        .glow-input:focus {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+            border-color: rgba(139, 92, 246, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-gray-200 antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col justify-between">
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-dark-bg/80 border-b border-dark-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#about" class="flex items-center gap-3 text-xl font-bold font-heading text-white tracking-wider group nav-page-link">
+                <div class="w-10 h-10 rounded-xl bg-dark-card border border-dark-border overflow-hidden p-1 flex items-center justify-center shadow-lg shadow-brand-500/20 group-hover:scale-105 group-hover:shadow-brand-500/40 transition-all duration-300">
+                    <img src="https://cdn.discordapp.com/attachments/1557452539299889204/1557452671609471047/JLB_Logo.png?backend=b2&ex=6ac7da54&is=6ac688d4&hm=90b14c091a73074e0cb33e6c8cb9ae6349d15b11c017b7f896726dce9399b6bb&" alt="JLB Logo" class="w-full h-full object-contain">
+                </div>
+                <span>Jean Leon <span class="text-brand-500">Breß</span></span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav id="main-nav" class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+                <a href="#steckbrief" class="hover:text-brand-500 transition-colors nav-page-link">Über mich</a>
+                <a href="#services" class="hover:text-brand-500 transition-colors nav-page-link">Leistungen</a>
+                <a href="#pricing" class="hover:text-brand-500 transition-colors nav-page-link">Preise</a>
+                <a href="#socials" class="hover:text-brand-500 transition-colors nav-page-link">Socials</a>
+                <a href="#calculator" class="px-5 py-2.5 rounded-full bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-lg shadow-brand-600/30 hover:shadow-brand-500/50 transition-all hover:scale-105 nav-page-link">
+                    Projekt anfragen
+                </a>
+            </nav>
+
+            <!-- Back to Home Button (Visible only on Impressum/Datenschutz) -->
+            <a id="back-home-btn" href="#about" class="hidden px-5 py-2.5 rounded-full bg-dark-card border border-dark-border text-gray-300 hover:text-white hover:border-brand-500 text-sm font-semibold transition-all nav-page-link">
+                &larr; Zurück zur Startseite
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-dark-card border border-dark-border text-gray-300 hover:text-white focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-card border-b border-dark-border px-4 pt-2 pb-6 space-y-3">
+            <a href="#steckbrief" class="block py-2 text-gray-300 hover:text-brand-500 font-medium nav-page-link">Über mich</a>
+            <a href="#services" class="block py-2 text-gray-300 hover:text-brand-500 font-medium nav-page-link">Leistungen</a>
+            <a href="#pricing" class="block py-2 text-gray-300 hover:text-brand-500 font-medium nav-page-link">Preise</a>
+            <a href="#socials" class="block py-2 text-gray-300 hover:text-brand-500 font-medium nav-page-link">Socials</a>
+            <a href="#calculator" class="block text-center py-3 rounded-xl bg-brand-600 text-white font-semibold nav-page-link">Projekt anfragen</a>
+        </div>
+    </header>
+
+    <!-- PAGE CONTENT WRAPPER -->
+    <main class="flex-grow">
+        
+        <!-- MAIN LANDING PAGE -->
+        <div id="page-main">
+            <!-- 1. Hero Section -->
+            <section id="about" class="relative py-16 lg:py-24 overflow-hidden glow-effect">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-500 text-xs font-semibold uppercase tracking-wider shadow-[0_0_15px_rgba(139,92,246,0.2)]">
+                                <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                                Web- & Grafikdesigner
+                            </div>
+
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                                Jean Leon Breß <br>
+                                <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-500 via-purple-400 to-indigo-400">
+                                    Web & Grafikdesign
+                                </span>
+                            </h1>
+
+                            <p class="text-lg text-gray-400 max-w-2xl leading-relaxed">
+                                Moin! Ich kombiniere performantes Webdesign mit ausdrucksstarkem Grafikdesign. Egal ob moderne Websites, prägnante Logos oder kreative Branding-Assets – ich gestalte digitale Erlebnisse, die im Gedächtnis bleiben.
+                            </p>
+
+                            <div class="flex flex-wrap gap-4 pt-4">
+                                <a href="#calculator" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-semibold shadow-xl shadow-brand-600/25 hover:shadow-brand-500/40 transition-all hover:scale-105 flex items-center gap-2 nav-page-link">
+                                    <i data-lucide="send" class="w-5 h-5"></i>
+                                    Projekt anfragen
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Profile Banner/Card -->
+                        <div class="lg:col-span-5">
+                            <div class="relative p-1 rounded-3xl bg-gradient-to-b from-brand-500/30 via-dark-border to-transparent hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all duration-300">
+                                <div class="bg-dark-card rounded-[22px] p-6 space-y-6 border border-dark-border/50">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-16 h-16 rounded-2xl bg-dark-bg border border-dark-border p-2 flex items-center justify-center shadow-md shadow-brand-500/20 overflow-hidden">
+                                            <img src="https://cdn.discordapp.com/attachments/1557452539299889204/1557452671609471047/JLB_Logo.png?backend=b2&ex=6ac7da54&is=6ac688d4&hm=90b14c091a73074e0cb33e6c8cb9ae6349d15b11c017b7f896726dce9399b6bb&" alt="JLB Logo" class="w-full h-full object-contain">
+                                        </div>
+                                        <div>
+                                            <h3 class="text-xl font-bold text-white">Jean Leon Breß</h3>
+                                            <p class="text-sm text-gray-400">Web- & Grafikdesigner</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-3 pt-2">
+                                        <div class="flex justify-between text-sm py-2 border-b border-dark-border/50">
+                                            <span class="text-gray-400">Verfügbarkeit</span>
+                                            <span class="text-emerald-400 font-medium flex items-center gap-1.5">
+                                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Offen für Projekte
+                                            </span>
+                                        </div>
+                                        <div class="flex justify-between text-sm py-2">
+                                            <span class="text-gray-400">Spezialisierung</span>
+                                            <span class="text-gray-200">Websites, Logos & Branding</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Über Mich / Steckbrief Section -->
+            <section id="steckbrief" class="py-20 bg-dark-card/40 border-t border-dark-border relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-xs font-semibold text-brand-500 uppercase tracking-widest mb-2">Persönliches Profil</h2>
+                        <p class="text-3xl sm:text-4xl font-extrabold text-white">Über mich – Steckbrief</p>
+                        <p class="mt-3 text-gray-400">Leidenschaft für starkes Design und durchdachte Weblösungen.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center bg-dark-card p-8 sm:p-12 rounded-3xl border border-dark-border glow-card">
+                        <!-- Left: Steckbrief Fakten -->
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="space-y-2">
+                                <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                                    <i data-lucide="sparkles" class="w-6 h-6 text-brand-500"></i>
+                                    Jean Leon Breß
+                                </h3>
+                                <p class="text-brand-500 font-medium text-sm">Web- & Grafikdesigner aus Deutschland</p>
+                            </div>
+
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                Ich verleihe Marken ein überzeugendes Gesicht – von der ersten Logo-Idee über Social-Media-Visuals bis hin zur maßgeschneiderten Website. Mein Ziel: Ästhetisches Design mit klarer Funktionalität zu verbinden.
+                            </p>
+
+                            <!-- Steckbrief Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-dark-border/60">
+                                <div class="p-4 rounded-xl bg-dark-bg/60 border border-dark-border">
+                                    <span class="text-xs text-gray-400 block mb-1">Berufsfeld</span>
+                                    <span class="text-sm font-semibold text-white">Webdesign & Grafikdesign</span>
+                                </div>
+
+                                <div class="p-4 rounded-xl bg-dark-bg/60 border border-dark-border">
+                                    <span class="text-xs text-gray-400 block mb-1">Fokus & Werkzeuge</span>
+                                    <span class="text-sm font-semibold text-white">HTML, Tailwind CSS, CC, UI/UX</span>
+                                </div>
+
+                                <div class="p-4 rounded-xl bg-dark-bg/60 border border-dark-border sm:col-span-2">
+                                    <span class="text-xs text-gray-400 block mb-1">Anspruch</span>
+                                    <span class="text-sm font-semibold text-white">Einzigartige Looks & Höchste Qualität</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-2 flex items-center gap-3 text-xs text-gray-400">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                                <span>100% Transparenz, schnelle Kommunikation & individuelle Betreuung.</span>
+                            </div>
+                        </div>
+
+                        <!-- Right: Profilbild -->
+                        <div class="lg:col-span-5 flex flex-col items-center justify-center">
+                            <div class="relative w-full max-w-sm aspect-square rounded-2xl border-2 border-brand-500/40 hover:border-brand-500 overflow-hidden shadow-lg hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all duration-300">
+                                <img src="https://cdn.discordapp.com/attachments/1409213014082846924/1557449646236762233/PXL_20260429_162557068.PORTRAIT2.jpg?backend=b2&ex=6ac7d783&is=6ac68603&hm=857f70adf3ff7beec98a68fb3b920c77ed8acb09995996baebd485b5b928467d&" alt="Jean Leon Breß" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Was ich mache / Services -->
+            <section id="services" class="py-24 border-t border-dark-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-xs font-semibold text-brand-500 uppercase tracking-widest mb-2">Leistungen</h2>
+                        <p class="text-3xl sm:text-4xl font-extrabold text-white">Was ich für Sie tun kann</p>
+                        <p class="mt-4 text-gray-400">Vom kreativen Grafikdesign bis hin zur fertigen, modernen Website.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Service 1 -->
+                        <div class="bg-dark-card p-8 rounded-2xl border border-dark-border glow-card group">
+                            <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:text-white transition-all shadow-md shadow-brand-500/10">
+                                <i data-lucide="palette" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Grafikdesign & Branding</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Logos, Banner, Social Media Visuals und Marketing-Materialien, die Ihre Marke perfekt in Szene setzen.
+                            </p>
+                        </div>
+
+                        <!-- Service 2 -->
+                        <div class="bg-dark-card p-8 rounded-2xl border border-dark-border glow-card group">
+                            <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:text-white transition-all shadow-md shadow-brand-500/10">
+                                <i data-lucide="smartphone" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Webdesign & UI/UX</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Moderne, ästhetische und benutzerfreundliche Websites, die auf allen Endgeräten perfekt funktionieren.
+                            </p>
+                        </div>
+
+                        <!-- Service 3 -->
+                        <div class="bg-dark-card p-8 rounded-2xl border border-dark-border glow-card group">
+                            <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:text-white transition-all shadow-md shadow-brand-500/10">
+                                <i data-lucide="zap" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Performance & SEO</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Blitzschnelle Ladezeiten und saubere Code-Strukturen für optimale Sichtbarkeit in Suchmaschinen.
+                            </p>
+                        </div>
+
+                        <!-- Service 4 -->
+                        <div class="bg-dark-card p-8 rounded-2xl border border-dark-border glow-card group">
+                            <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:text-white transition-all shadow-md shadow-brand-500/10">
+                                <i data-lucide="refresh-cw" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Redesign & Auffrischung</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Auffrischung bestehender Internetauftritte und Designs für ein rundum modernes Markenbild.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Preise Section -->
+            <section id="pricing" class="py-24 bg-dark-card/30 border-t border-dark-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-xs font-semibold text-brand-500 uppercase tracking-widest mb-2">Transparente Abrechnung</h2>
+                        <p class="text-3xl sm:text-4xl font-extrabold text-white">Preise & Stundensatz</p>
+                        <p class="mt-4 text-gray-400">Faire und flexible Abrechnung für Grafik- und Webdesign-Projekte.</p>
+                    </div>
+
+                    <!-- Stundensatz Info Banner -->
+                    <div class="max-w-3xl mx-auto mb-12 p-6 rounded-2xl bg-gradient-to-r from-brand-900/30 via-dark-card to-dark-card border border-brand-500/30 text-center glow-card">
+                        <p class="text-sm text-gray-400 uppercase tracking-wider mb-1">Mein regulärer Stundensatz</p>
+                        <p class="text-3xl font-extrabold text-white">
+                            <span class="text-brand-500">35 € – 51 €</span> / Stunde
+                        </p>
+                        <p class="text-xs text-gray-400 mt-2">Der exakte Stundensatz richtet sich nach Art, Komplexität und Dringlichkeit des Projekts.</p>
+                    </div>
+
+                    <!-- Beispielpakete zur Orientierung -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Paket 1 -->
+                        <div class="bg-dark-card p-8 rounded-2xl border border-dark-border flex flex-col justify-between glow-card">
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">Landingpage</h3>
+                                <p class="text-gray-400 text-sm mb-6">Perfekt für Produktlaunches oder prägnante Online-Auftritte.</p>
+                                <div class="text-2xl font-bold text-white mb-1">ca. 10 - 20 Std.</div>
+                                <p class="text-xs text-brand-500 mb-6">Abrechnung: 35 € - 51 € / Std.</p>
+                                <ul class="space-y-3 text-sm text-gray-300">
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Single-Page Design</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Mobiloptimiert</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Kontaktformular</li>
+                                </ul>
+                            </div>
+                            <a href="#calculator" class="mt-8 block text-center py-3 rounded-xl bg-dark-hover border border-dark-border text-white hover:border-brand-500 hover:bg-brand-600/20 font-medium transition-all nav-page-link">
+                                Anfragen
+                            </a>
+                        </div>
+
+                        <!-- Paket 2 (Featured) -->
+                        <div class="bg-dark-card p-8 rounded-2xl border-2 border-brand-500 flex flex-col justify-between relative shadow-xl shadow-brand-500/10 glow-card">
+                            <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 bg-brand-600 text-white text-xs font-bold rounded-full uppercase tracking-wider shadow-md shadow-brand-600/30">Beliebt</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">Business Website</h3>
+                                <p class="text-gray-400 text-sm mb-6">Umfassende Websites für kleine & mittelständische Unternehmen.</p>
+                                <div class="text-2xl font-bold text-white mb-1">ca. 25 - 45 Std.</div>
+                                <p class="text-xs text-brand-500 mb-6">Abrechnung: 35 € - 51 € / Std.</p>
+                                <ul class="space-y-3 text-sm text-gray-300">
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Bis zu 5 Unterseiten</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Individuelles UI/UX-Design</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Basic SEO Optimierung</li>
+                                </ul>
+                            </div>
+                            <a href="#calculator" class="mt-8 block text-center py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold transition-all shadow-lg shadow-brand-600/30 nav-page-link">
+                                Anfragen
+                            </a>
+                        </div>
+
+                        <!-- Paket 3 -->
+                        <div class="bg-dark-card p-8 rounded-2xl border border-dark-border flex flex-col justify-between glow-card">
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">Individuelles Projekt</h3>
+                                <p class="text-gray-400 text-sm mb-6">Komplexe Anforderungen, Relaunch oder Kombi-Projekte.</p>
+                                <div class="text-2xl font-bold text-white mb-1">Flexibler Aufwand</div>
+                                <p class="text-xs text-brand-500 mb-6">Abrechnung: 35 € - 51 € / Std.</p>
+                                <ul class="space-y-3 text-sm text-gray-300">
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Individuelle Beratung</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Spezielle Features / Logik</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Wartung & Betreuung</li>
+                                </ul>
+                            </div>
+                            <a href="#calculator" class="mt-8 block text-center py-3 rounded-xl bg-dark-hover border border-dark-border text-white hover:border-brand-500 hover:bg-brand-600/20 font-medium transition-all nav-page-link">
+                                Anfragen
+                            </a>
+                        </div>
+
+                        <!-- Paket 4 (Grafikdesign) -->
+                        <div class="bg-dark-card p-8 rounded-2xl border border-dark-border flex flex-col justify-between glow-card">
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">Grafikdesign</h3>
+                                <p class="text-gray-400 text-sm mb-6">Einzigartiges Branding, visuelle Identität & Print/Digital Design.</p>
+                                <div class="text-2xl font-bold text-white mb-1">Nach Aufwand</div>
+                                <p class="text-xs text-brand-500 mb-6">Abrechnung: 35 € - 51 € / Std.</p>
+                                <ul class="space-y-3 text-sm text-gray-300">
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Logos & Branding</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Social Media Banner</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Print- & Digital-Assets</li>
+                                </ul>
+                            </div>
+                            <a href="#calculator" class="mt-8 block text-center py-3 rounded-xl bg-dark-hover border border-dark-border text-white hover:border-brand-500 hover:bg-brand-600/20 font-medium transition-all nav-page-link">
+                                Anfragen
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Social Media Section -->
+            <section id="socials" class="py-16 bg-dark-card/20 border-t border-dark-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-10">
+                        <h2 class="text-xs font-semibold text-brand-500 uppercase tracking-widest mb-2">Community & Content</h2>
+                        <p class="text-2xl sm:text-3xl font-extrabold text-white">Folge mir auf Social Media</p>
+                    </div>
+                    
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <!-- Instagram mit Logo -->
+                        <a href="https://www.instagram.com/leonbress/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 px-7 py-4 rounded-2xl bg-dark-card border border-dark-border glow-card group">
+                            <div class="w-10 h-10 rounded-xl bg-dark-bg border border-dark-border overflow-hidden flex items-center justify-center p-1.5 group-hover:scale-110 transition-transform">
+                                <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1280px-Instagram_logo_2022.svg.png?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=thumbnail" alt="Instagram Logo" class="w-full h-full object-contain">
+                            </div>
+                            <div>
+                                <span class="block text-sm font-bold text-white group-hover:text-brand-500 transition-colors">Instagram</span>
+                                <span class="block text-xs text-gray-400">@leonbress</span>
+                            </div>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-gray-500 group-hover:text-brand-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all ml-2"></i>
+                        </a>
+
+                        <!-- TikTok mit Logo -->
+                        <a href="https://www.tiktok.com/@leonbress" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 px-7 py-4 rounded-2xl bg-dark-card border border-dark-border glow-card group">
+                            <div class="w-10 h-10 rounded-xl bg-dark-bg border border-dark-border overflow-hidden flex items-center justify-center p-1.5 group-hover:scale-110 transition-transform">
+                                <img src="https://www.designenlassen.de/blog/wp-content/uploads/2024/03/Tiktok-Logo-2016.png" alt="TikTok Logo" class="w-full h-full object-contain">
+                            </div>
+                            <div>
+                                <span class="block text-sm font-bold text-white group-hover:text-brand-500 transition-colors">TikTok</span>
+                                <span class="block text-xs text-gray-400">@leonbress</span>
+                            </div>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-gray-500 group-hover:text-brand-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Kontaktfenster -->
+            <section id="calculator" class="py-24 border-t border-dark-border">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-xs font-semibold text-brand-500 uppercase tracking-widest mb-2">Projektanfrage</h2>
+                        <p class="text-3xl sm:text-4xl font-extrabold text-white">Jetzt Projekt anfragen</p>
+                        <p class="mt-3 text-gray-400">Beschreiben Sie Ihre Wünsche für Web- oder Grafikdesign – ich melde mich umgehend.</p>
+                    </div>
+
+                    <div class="bg-dark-card rounded-3xl p-6 sm:p-10 border border-dark-border shadow-2xl">
+                        <form id="contact-form" action="https://formspree.io/f/xljgjbad" method="POST" class="space-y-6">
+                            
+                            <!-- Kontaktdaten Formularfelder -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="firstname" class="block text-sm font-medium text-gray-300 mb-2">Vorname *</label>
+                                    <input type="text" id="firstname" name="Vorname" required placeholder="Max" class="w-full px-4 py-3 rounded-xl bg-dark-bg border border-dark-border text-white placeholder-gray-500 focus:outline-none glow-input transition-all">
+                                </div>
+
+                                <div>
+                                    <label for="lastname" class="block text-sm font-medium text-gray-300 mb-2">Nachname *</label>
+                                    <input type="text" id="lastname" name="Nachname" required placeholder="Mustermann" class="w-full px-4 py-3 rounded-xl bg-dark-bg border border-dark-border text-white placeholder-gray-500 focus:outline-none glow-input transition-all">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">E-Mail-Adresse *</label>
+                                    <input type="email" id="email" name="Email" required placeholder="max@beispiel.de" class="w-full px-4 py-3 rounded-xl bg-dark-bg border border-dark-border text-white placeholder-gray-500 focus:outline-none glow-input transition-all">
+                                </div>
+
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">Telefonnummer *</label>
+                                    <input type="tel" id="phone" name="Telefon" required placeholder="+49 123 456789" class="w-full px-4 py-3 rounded-xl bg-dark-bg border border-dark-border text-white placeholder-gray-500 focus:outline-none glow-input transition-all">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="description" class="block text-sm font-medium text-gray-300 mb-2">Projektbeschreibung (Webdesign, Grafikdesign, Wünsche...) *</label>
+                                <textarea id="description" name="Projektbeschreibung" rows="5" required placeholder="Beschreiben Sie Ihr Projekt möglichst genau (z. B. Website, Logo, Banner, Umfang)..." class="w-full px-4 py-3 rounded-xl bg-dark-bg border border-dark-border text-white placeholder-gray-500 focus:outline-none glow-input transition-all resize-none"></textarea>
+                            </div>
+
+                            <!-- Button Send -->
+                            <button type="submit" id="submit-btn" disabled class="w-full py-4 rounded-xl bg-brand-600 text-white font-semibold flex items-center justify-center gap-2 opacity-50 cursor-not-allowed transition-all duration-300">
+                                <i data-lucide="send" class="w-5 h-5"></i>
+                                Anfrage absenden
+                            </button>
+
+                            <p class="text-xs text-center text-gray-500">Alle mit * markierten Felder sind Pflichtfelder.</p>
+                        </form>
+
+                        <!-- Success Message Box -->
+                        <div id="success-message" class="hidden p-8 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-4">
+                            <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+                                <i data-lucide="check-circle" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Anfrage erfolgreich gesendet!</h3>
+                            <p class="text-gray-300 text-sm max-w-md mx-auto">Vielen Dank für Ihre Anfrage, <span id="client-name" class="font-semibold text-white"></span>! Ich werde mich in Kürze bei Ihnen melden.</p>
+                            <button id="reset-btn" class="mt-4 px-6 py-2.5 rounded-xl bg-dark-bg border border-dark-border text-sm font-medium text-gray-300 hover:text-white transition-colors">
+                                Neue Anfrage stellen
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- IMPRESSUM PAGE SECTION -->
+        <div id="page-impressum" class="hidden py-16">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="border-b border-dark-border pb-6">
+                    <h1 class="text-4xl font-extrabold text-white mb-2">Impressum</h1>
+                    <p class="text-gray-400">Angaben gemäß § 5 TMG</p>
+                </div>
+
+                <div class="bg-dark-card rounded-2xl p-8 border border-dark-border space-y-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-2">Diensteanbieter</h2>
+                        <p class="text-gray-300 leading-relaxed">
+                            Jean Leon Breß<br>
+                            Web- & Grafikdesign<br>
+                            Richthofenstraße 9a<br>
+                            24768 Rendsburg<br>
+                            Deutschland
+                        </p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-2">Kontaktmöglichkeiten</h2>
+                        <p class="text-gray-300 leading-relaxed">
+                            E-Mail: <a href="mailto:kontakt@beispiel.de" class="text-brand-500 hover:underline">kontakt@beispiel.de</a><br>
+                            Telefon: +49 1520 3577178
+                        </p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-2">Umsatzsteuer-ID</h2>
+                        <p class="text-gray-300 leading-relaxed">
+                            Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>
+                            [DE123456789 / Oder Kleinunternehmerregelung gemäß § 19 UStG]
+                        </p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-2">Redaktionell verantwortlich</h2>
+                        <p class="text-gray-300 leading-relaxed">
+                            Jean Leon Breß<br>
+                            24768 Rendsburg
+                        </p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-2">EU-Streitschlichtung</h2>
+                        <p class="text-gray-300 leading-relaxed">
+                            Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: 
+                            <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" class="text-brand-500 hover:underline">https://ec.europa.eu/consumers/odr/</a>.<br>
+                            Unsere E-Mail-Adresse finden Sie oben im Impressum.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-2">Verbraucherstreitbeilegung/Universalschlichtungsstelle</h2>
+                        <p class="text-gray-300 leading-relaxed">
+                            Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATENSCHUTZ PAGE SECTION -->
+        <div id="page-datenschutz" class="hidden py-16">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="border-b border-dark-border pb-6">
+                    <h1 class="text-4xl font-extrabold text-white mb-2">Datenschutzerklärung</h1>
+                    <p class="text-gray-400">Informationen zur Verarbeitung Ihrer personenbezogenen Daten</p>
+                </div>
+
+                <div class="bg-dark-card rounded-2xl p-8 border border-dark-border space-y-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-2">1. Datenschutz auf einen Blick</h2>
+                        <h3 class="text-lg font-semibold text-brand-500 mt-3 mb-1">Allgemeine Hinweise</h3>
+                        <p class="text-gray-300 leading-relaxed text-sm">
+                            Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-2">2. Verantwortliche Stelle</h2>
+                        <p class="text-gray-300 leading-relaxed text-sm">
+                            Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br><br>
+                            <strong>Jean Leon Breß</strong><br>
+                            Web- & Grafikdesign<br>
+                            Richthofenstraße 9a<br>
+                            24768 Rendsburg<br>
+                            E-Mail: leonbress@pm.me
+                        </p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-2">3. Datenerfassung auf dieser Website</h2>
+                        <h3 class="text-lg font-semibold text-brand-500 mt-3 mb-1">Kontaktformular (Formspree)</h3>
+                        <p class="text-gray-300 leading-relaxed text-sm">
+                            Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Die Verarbeitung dieser Daten erfolgt über den Dienstleister Formspree Inc.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-2">4. Externe Dienste & Schriftarten</h2>
+                        <h3 class="text-lg font-semibold text-brand-500 mt-3 mb-1">Google Web Fonts & Tailwind CDN</h3>
+                        <p class="text-gray-300 leading-relaxed text-sm">
+                            Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten und Styles sogenannte Web Fonts und Skripte, die von Google Fonts und CDN-Anbietern bereitgestellt werden.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-2">5. Ihre Rechte</h2>
+                        <p class="text-gray-300 leading-relaxed text-sm">
+                            Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-card border-t border-dark-border py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-2 text-lg font-bold font-heading text-white">
+                <div class="w-8 h-8 rounded-lg bg-dark-bg border border-dark-border overflow-hidden p-1 flex items-center justify-center shadow-md shadow-brand-500/20">
+                    <img src="https://cdn.discordapp.com/attachments/1557452539299889204/1557452671609471047/JLB_Logo.png?backend=b2&ex=6ac7da54&is=6ac688d4&hm=90b14c091a73074e0cb33e6c8cb9ae6349d15b11c017b7f896726dce9399b6bb&" alt="JLB Logo" class="w-full h-full object-contain">
+                </div>
+                <span>Jean Leon Breß</span>
+            </div>
+
+            <p class="text-sm text-gray-500">
+                &copy; <span id="year"></span> Jean Leon Breß – Web- & Grafikdesign. Alle Rechte vorbehalten.
+            </p>
+
+            <div class="flex gap-6 text-sm text-gray-400">
+                <a href="#impressum" class="hover:text-brand-500 transition-colors nav-page-link">Impressum</a>
+                <a href="#datenschutz" class="hover:text-brand-500 transition-colors nav-page-link">Datenschutz</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lucide Icons
+            lucide.createIcons();
+
+            // Dynamic Year
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Single Page Routing Logic
+            const pageMain = document.getElementById('page-main');
+            const pageImpressum = document.getElementById('page-impressum');
+            const pageDatenschutz = document.getElementById('page-datenschutz');
+            const mainNav = document.getElementById('main-nav');
+            const backHomeBtn = document.getElementById('back-home-btn');
+
+            function handleRouting() {
+                const hash = window.location.hash;
+
+                // Hide all pages first
+                pageMain.classList.add('hidden');
+                pageImpressum.classList.add('hidden');
+                pageDatenschutz.classList.add('hidden');
+
+                if (hash === '#impressum') {
+                    pageImpressum.classList.remove('hidden');
+                    mainNav.classList.add('hidden');
+                    backHomeBtn.classList.remove('hidden');
+                    window.scrollTo(0, 0);
+                } else if (hash === '#datenschutz') {
+                    pageDatenschutz.classList.remove('hidden');
+                    mainNav.classList.add('hidden');
+                    backHomeBtn.classList.remove('hidden');
+                    window.scrollTo(0, 0);
+                } else {
+                    pageMain.classList.remove('hidden');
+                    mainNav.classList.remove('hidden');
+                    backHomeBtn.classList.add('hidden');
+
+                    // If section anchor exists on main page, scroll to it
+                    if (hash && document.querySelector(hash)) {
+                        setTimeout(() => {
+                            document.querySelector(hash).scrollIntoView({ behavior: 'smooth' });
+                        }, 50);
+                    }
+                }
+
+                // Close mobile menu on navigate
+                mobileMenu.classList.add('hidden');
+            }
+
+            window.addEventListener('hashchange', handleRouting);
+            handleRouting(); // Initial call on load
+
+            // Form Validation Logic
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const successMessage = document.getElementById('success-message');
+            const clientNameDisplay = document.getElementById('client-name');
+            const resetBtn = document.getElementById('reset-btn');
+
+            const inputs = form.querySelectorAll('input[required], textarea[required]');
+
+            function checkFormValidity() {
+                let isValid = true;
+
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                    }
+                });
+
+                if (isValid) {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    submitBtn.classList.add('hover:bg-brand-500', 'hover:scale-[1.02]', 'shadow-lg', 'shadow-brand-600/40');
+                } else {
+                    submitBtn.disabled = true;
+                    submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    submitBtn.classList.remove('hover:bg-brand-500', 'hover:scale-[1.02]', 'shadow-lg', 'shadow-brand-600/40');
+                }
+            }
+
+            inputs.forEach(input => {
+                input.addEventListener('input', checkFormValidity);
+            });
+
+            // Form Submit Event per AJAX
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const firstName = document.getElementById('firstname').value;
+                const data = new FormData(form);
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Wird gesendet...';
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        clientNameDisplay.textContent = firstName;
+                        form.classList.add('hidden');
+                        successMessage.classList.remove('hidden');
+                    } else {
+                        alert('Fehler beim Senden der Anfrage. Bitte versuchen Sie es erneut.');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i data-lucide="send" class="w-5 h-5"></i> Anfrage absenden';
+                        lucide.createIcons();
+                    }
+                } catch (error) {
+                    alert('Verbindungsfehler. Bitte überprüfen Sie Ihre Internetverbindung.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i data-lucide="send" class="w-5 h-5"></i> Anfrage absenden';
+                    lucide.createIcons();
+                }
+            });
+
+            // Reset Form Event
+            resetBtn.addEventListener('click', () => {
+                form.reset();
+                submitBtn.innerHTML = '<i data-lucide="send" class="w-5 h-5"></i> Anfrage absenden';
+                lucide.createIcons();
+                checkFormValidity();
+                successMessage.classList.add('hidden');
+                form.classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
